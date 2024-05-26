@@ -2,6 +2,9 @@
 
 This contracts are a prototype for a CanoicalFrontendRegistry. The developer submits hashes of files to the CFR Contract. The Contract verifies them throug ENS.
 
+The the webextension can be find here:
+https://github.com/mfahampshire/CFRWebExtension?tab=readme-ov-file
+
 ### Contracts Deployed
 
 Sepolia (verified):
