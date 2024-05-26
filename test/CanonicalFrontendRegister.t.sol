@@ -47,4 +47,13 @@ contract CanonicalFrontendRegisterTest is Test {
         assertEq(versionNumber, 0);
         assertEq(timestamp, block.timestamp);
     }
+
+    function test_noEntry() public {
+        string memory name = "blagadkjdshf";
+        bytes32 enshash = keccak256(abi.encodePacked(name));
+        (bytes32[] memory files, uint128 timestamp, uint256 versionNumber) = CFR
+            .getFrontendFullVersion(enshash, 0);
+        assertEq(versionNumber, 0);
+        assertEq(timestamp, 0);
+    }
 }

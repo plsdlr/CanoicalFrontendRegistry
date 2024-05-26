@@ -1,5 +1,5 @@
 pragma solidity ^0.8.13;
-
+// this is a script to get bytes32 from the namehash algo
 import {Test, console2} from "forge-std/Test.sol";
 import {ENSNamehash} from "src/namehash.sol";
 

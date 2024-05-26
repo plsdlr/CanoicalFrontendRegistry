@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
 import {minInterface} from "./minInterfaceENS.sol";
+import {Ownable} from "lib/solady/src/auth/Ownable.sol";
 
 pragma solidity ^0.8.13;
 
-contract CanoicalFrontendRegistry {
+contract CanoicalFrontendRegistry is Ownable {
     //@dev Maps a bytes32 key (e.g. keccak256(abi.encodePacked(domainName)) to
     //@dev a version number (uint256) to a commit struct.
     mapping(bytes32 => mapping(uint256 => commit)) public cfrontend;
@@ -32,10 +33,11 @@ contract CanoicalFrontendRegistry {
     }
 
     //@dev derive the TokenId from the domain name string
-    function changeEnsAddress(address newAddress) external {
+    function changeEnsAddress(address newAddress) external onlyOwner {
         ens = newAddress;
     }
 
+    //@dev we verify here against ENS
     function verification(uint256 tokenId) internal view {
         minInterface minIn;
         minIn = minInterface(ens);
@@ -43,6 +45,7 @@ contract CanoicalFrontendRegistry {
         require(_owner == msg.sender, "NOT_OWNER_OF_ENS");
     }
 
+    //@dev commit the frontend hashes to the contract
     function commitFrontendWithEns(
         string memory _ens,
         bytes32[] memory files
@@ -55,14 +58,7 @@ contract CanoicalFrontendRegistry {
         currentVersionNumber[enshash] = currentVersionNumber[enshash] + 1;
     }
 
-    // function commitFrontend(bytes32 enshash, bytes32[] memory files) external {
-    //     verification(enshash);
-    //     uint256 currentVersion = currentVersionNumber[enshash];
-    //     uint256 timestamp = block.timestamp;
-    //     cfrontend[enshash][currentVersion] = commit(files, uint128(timestamp));
-    //     currentVersionNumber[enshash] = currentVersionNumber[enshash] + 1;
-    // }
-
+    //@dev get frontend hashes with version
     function _getFrontend(
         bytes32 enshash,
         uint256 version,
@@ -92,6 +88,7 @@ contract CanoicalFrontendRegistry {
         }
     }
 
+    //@dev external get frontend hashes with version
     function getFrontendFullVersion(
         bytes32 enshash,
         uint256 version
@@ -106,7 +103,7 @@ contract CanoicalFrontendRegistry {
     {
         return _getFrontend(enshash, version, true);
     }
-
+    //@dev external get frontend hashes without version
     function getFrontendFull(
         bytes32 enshash
     )

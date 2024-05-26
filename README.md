@@ -1,19 +1,11 @@
-## Foundry
+### CanoicalFrontendRegistry
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This contracts are a prototype for a CanoicalFrontendRegistry. The developer submits hashes of files to the CFR Contract. The Contract verifies them throug ENS.
 
-Foundry consists of:
+### Contracts Deployed
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
+Sepolia (verified):
+0x0FF64e781b0fc0b5595604C2f9B660a40B73c23
 
 ### Build
 
